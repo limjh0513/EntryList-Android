@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="activity"
+            type="kr.hs.dgsw.jaehyeon.view.fragment.WriteFragment" />
+
+        <variable
+            name="vm"
+            type="kr.hs.dgsw.jaehyeon.viewModel.WriteViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_phoneNumber"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:gravity="center"
+                android:text="전화번호"
+                android:textColor="@color/write_text_color"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_phoneNumber"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:background="@drawable/edittext_border"
+                android:ems="13"
+                android:gravity="center"
+                android:text="@={vm.phoneNumber}"
+                android:hint="예시) 010-0000-0000"
+                android:inputType="textPersonName"
+                android:textColor="@color/write_text_color"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_area"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:text="거주지역 (시/군/구)"
+                android:textColor="@color/write_text_color"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_area"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@drawable/edittext_border"
+                android:ems="5"
+                android:gravity="center"
+                android:text="@={vm.residence}"
+                android:hint="예시) 달서구"
+                android:inputType="textPersonName"
+                android:textColor="@color/write_text_color"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/tv_agree_1"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="60dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="개인정보\n수집 및 이용\n동의"
+                android:textColor="@color/write_text_color"
+                android:textSize="20sp" />
+
+            <CheckBox
+                android:id="@+id/checkbox_agree_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="동의합니다"
+                android:checked="@{vm.isCheck1()}"
+                android:textColor="@color/write_text_color"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="40dp"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/tv_agree_2"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="75dp"
+                android:gravity="center"
+                android:text="개인정보\n제3자\n제공 동의"
+                android:textColor="@color/write_text_color"
+                android:textSize="20sp" />
+
+            <CheckBox
+                android:id="@+id/checkbox_agree_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="동의합니다"
+                android:checked="@{vm.isCheck2()}"
+                android:textColor="@color/write_text_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:background="#FF4D4F"
+                android:text="취소"
+                android:onClick="@{vm::cancelBtnOnClick}"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_complete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="150dp"
+                android:background="#52C41A"
+                android:layout_gravity="right"
+                android:text="완료"
+                android:onClick="@{vm::completeBtnOnClick}"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
