@@ -9,7 +9,7 @@ import kr.hs.dgsw.jaehyeon.viewModel.utils.SingleLiveEvent
 
 class WriteViewModel : BaseViewModel() {
     val writeResult = MutableLiveData<Boolean>()
-    val repository = EntryListRepository()
+    private val repository = EntryListRepository()
 
     val clickCancelBtn = SingleLiveEvent<Any>()
 
@@ -27,16 +27,21 @@ class WriteViewModel : BaseViewModel() {
     }
 
     fun completeBtnOnClick(view: View) {
+
         if (phoneNumber.value?.length != 13) {
             errorInputNumber.call()
         } else {
             if (residence.value?.length!! < 2) {
                 errorInputResidence.call()
             } else {
-                if (isCheck1.value == false || isCheck2.value == false) {
+                if (isCheck1.value != true) {
                     errorNotChecked.call()
                 } else {
-                    insertVisitant()
+                    if (isCheck2.value != true) {
+                        errorNotChecked.call()
+                    } else {
+                        insertVisitant()
+                    }
                 }
             }
         }

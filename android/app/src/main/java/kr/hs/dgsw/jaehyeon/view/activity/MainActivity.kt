@@ -1,25 +1,23 @@
 package kr.hs.dgsw.jaehyeon.view.activity
 
+import android.content.Context
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.hs.dgsw.jaehyeon.R
 import kr.hs.dgsw.jaehyeon.databinding.ActivityMainBinding
 import kr.hs.dgsw.jaehyeon.network.model.Response.VisitantResponse
-import kr.hs.dgsw.jaehyeon.view.fragment.WriteFragment
+import kr.hs.dgsw.jaehyeon.view.fragment.LoginDialogFragment
+import kr.hs.dgsw.jaehyeon.view.fragment.SignupDialogFragment
+import kr.hs.dgsw.jaehyeon.view.fragment.WriteDialogFragment
 import kr.hs.dgsw.jaehyeon.viewModel.MainViewModel
 
 class MainActivity : AppCompatActivity(), DialogInterface.OnDismissListener{
     lateinit var viewModel: MainViewModel
     lateinit var binding: ActivityMainBinding
-    lateinit var linearLayoutManager: LinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,15 +26,14 @@ class MainActivity : AppCompatActivity(), DialogInterface.OnDismissListener{
 
         binding.activity = this
         binding.vm = viewModel
+        binding.lifecycleOwner = this
 
-        linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-        observerViewModel()
+        observeViewModel()
     }
 
-    fun observerViewModel(){
+    private fun observeViewModel(){
         binding.reyVisit.adapter = viewModel.adapter
-        binding.reyVisit.layoutManager = linearLayoutManager
+        binding.reyVisit.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         with(viewModel){
             adapter.context = this@MainActivity.applicationContext
@@ -47,13 +44,31 @@ class MainActivity : AppCompatActivity(), DialogInterface.OnDismissListener{
             }
 
             clickWriteBtn.observe(this@MainActivity){
-                val fragment = WriteFragment().getInstance()
-                fragment.show(supportFragmentManager, fragment.tag)
+                val dialogFragment = WriteDialogFragment().getInstance()
+                dialogFragment.show(supportFragmentManager, dialogFragment.tag)
+            }
+
+            clickManagerBtn.observe(this@MainActivity){
+                checkExistPassword()
             }
         }
     }
 
     override fun onDismiss(dialog: DialogInterface?) {
         viewModel.getVisitantList()
+    }
+
+    private fun checkExistPassword(){
+        val sharedPref = this?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val firstPw = sharedPref.getString("firstPw1", null)
+        val secondPw = sharedPref.getString("secondPw2", null)
+
+        if(firstPw == null || secondPw == null){
+            val dialogFragment = SignupDialogFragment().getInstance()
+            dialogFragment.show(supportFragmentManager, dialogFragment.tag)
+        } else {
+            val dialogFragment = LoginDialogFragment().getInstance()
+            dialogFragment.show(supportFragmentManager, dialogFragment.tag)
+        }
     }
 }

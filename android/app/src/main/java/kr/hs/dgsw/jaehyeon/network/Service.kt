@@ -8,11 +8,11 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object Service {
-    val okHttpClient = OkHttpClient().newBuilder()
+    private val okHttpClient = OkHttpClient().newBuilder()
         .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .build()
 
-    val retrofit = Retrofit.Builder()
+    val retrofit: Api = Retrofit.Builder()
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)

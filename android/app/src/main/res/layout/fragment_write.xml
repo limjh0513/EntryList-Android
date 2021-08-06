@@ -5,7 +5,7 @@
     <data>
         <variable
             name="activity"
-            type="kr.hs.dgsw.jaehyeon.view.fragment.WriteFragment" />
+            type="kr.hs.dgsw.jaehyeon.view.fragment.WriteDialogFragment" />
 
         <variable
             name="vm"
@@ -45,7 +45,7 @@
                 android:gravity="center"
                 android:text="@={vm.phoneNumber}"
                 android:hint="예시) 010-0000-0000"
-                android:inputType="textPersonName"
+                android:inputType="text"
                 android:textColor="@color/write_text_color"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -79,7 +79,7 @@
                 android:gravity="center"
                 android:text="@={vm.residence}"
                 android:hint="예시) 달서구"
-                android:inputType="textPersonName"
+                android:inputType="text"
                 android:textColor="@color/write_text_color"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="동의합니다"
-                android:checked="@{vm.isCheck1()}"
+                android:checked="@={vm.isCheck1()}"
                 android:textColor="@color/write_text_color"
                 android:textSize="16sp" />
 
@@ -147,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="동의합니다"
-                android:checked="@{vm.isCheck2()}"
+                android:checked="@={vm.isCheck2()}"
                 android:textColor="@color/write_text_color"
                 android:textSize="16sp" />
         </LinearLayout>

@@ -18,6 +18,6 @@ interface Api {
     @PUT("insert")
     fun addVisitant(@Body visitantRequest: VisitantRequest): Single<Response<BaseResponse<Boolean>>>
 
-    @DELETE("delete")
+    @DELETE("delete/{id}")
     fun deleteVisitant(@Path("id") id: Int): Single<Response<BaseResponse<Boolean>>>
 }

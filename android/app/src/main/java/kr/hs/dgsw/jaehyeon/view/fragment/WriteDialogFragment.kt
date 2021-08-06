@@ -13,13 +13,13 @@ import kr.hs.dgsw.jaehyeon.R
 import kr.hs.dgsw.jaehyeon.databinding.FragmentWriteBinding
 import kr.hs.dgsw.jaehyeon.viewModel.WriteViewModel
 
-class WriteFragment : DialogFragment() {
+class WriteDialogFragment : DialogFragment() {
 
     lateinit var binding: FragmentWriteBinding
     lateinit var viewModel: WriteViewModel
 
-    fun getInstance(): WriteFragment {
-        return WriteFragment()
+    fun getInstance(): WriteDialogFragment {
+        return WriteDialogFragment()
     }
 
     override fun onCreateView(
@@ -31,6 +31,7 @@ class WriteFragment : DialogFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_write, container, false)
         viewModel = ViewModelProvider(this).get(WriteViewModel::class.java)
 
+        binding.lifecycleOwner = this
         binding.activity = this
         binding.vm = viewModel
         isCancelable = false
@@ -48,24 +49,24 @@ class WriteFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observerViewModel()
+        observeViewModel()
     }
 
-    fun observerViewModel() {
+    fun observeViewModel() {
         with(viewModel) {
-            clickCancelBtn.observe(this@WriteFragment) {
+            clickCancelBtn.observe(this@WriteDialogFragment) {
                 dismiss()
             }
-            errorInputNumber.observe(this@WriteFragment){
-                Toast.makeText(this@WriteFragment.context, "예시와 맞는 전화번호를 입력했는지 확인해주세요.", Toast.LENGTH_SHORT).show()
+            errorInputNumber.observe(this@WriteDialogFragment){
+                Toast.makeText(this@WriteDialogFragment.context, "예시와 맞는 전화번호를 입력했는지 확인해주세요.", Toast.LENGTH_SHORT).show()
             }
-            errorInputResidence.observe(this@WriteFragment){
-                Toast.makeText(this@WriteFragment.context, "예시와 맞는 거주지를 입력했는지 확인해주세요.", Toast.LENGTH_SHORT).show()
+            errorInputResidence.observe(this@WriteDialogFragment){
+                Toast.makeText(this@WriteDialogFragment.context, "예시와 맞는 거주지를 입력했는지 확인해주세요.", Toast.LENGTH_SHORT).show()
             }
-            errorNotChecked.observe(this@WriteFragment){
-                Toast.makeText(this@WriteFragment.context, "개인정보 수집 및 제공 동의에 체크해주세요.", Toast.LENGTH_SHORT).show()
+            errorNotChecked.observe(this@WriteDialogFragment){
+                Toast.makeText(this@WriteDialogFragment.context, "개인정보 수집 및 제공 동의에 체크해주세요.", Toast.LENGTH_SHORT).show()
             }
-            writeResult.observe(this@WriteFragment){
+            writeResult.observe(this@WriteDialogFragment){
                 dismiss()
             }
         }

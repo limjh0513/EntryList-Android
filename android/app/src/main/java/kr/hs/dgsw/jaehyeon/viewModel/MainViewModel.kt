@@ -14,12 +14,11 @@ import kr.hs.dgsw.jaehyeon.viewModel.utils.SingleLiveEvent
 class MainViewModel : BaseViewModel() {
     private val repository = EntryListRepository()
 
-    val currentPage = MutableLiveData<MainActivity>()
-
     val adapter: MainAdapter = MainAdapter()
     val visitantData = MutableLiveData<List<VisitantResponse>>()
 
     val clickWriteBtn = SingleLiveEvent<Any>()
+    val clickManagerBtn = SingleLiveEvent<Any>()
 
     init{
         getVisitantList()
@@ -36,6 +35,10 @@ class MainViewModel : BaseViewModel() {
                 e.printStackTrace()
             }
         })
+    }
+
+    fun managerBtnOnClick(view: View){
+        clickManagerBtn.call()
     }
 
     fun writeBtnOnClick(view: View){
