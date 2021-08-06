@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @AllArgsConstructor
-public class VisitantResponse {
+public class VisitantResponse{
     private int id;
     private String phone_number;
     private String residence;
@@ -18,4 +18,6 @@ public class VisitantResponse {
     public VisitantResponse() {
 
     }
+
+
 }

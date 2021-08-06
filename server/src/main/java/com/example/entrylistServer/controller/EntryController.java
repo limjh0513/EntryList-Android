@@ -27,7 +27,7 @@ public class EntryController {
     }
 
     @PutMapping("insert")
-    public BaseResponse<Boolean> insertVisitant(VisitantRequest visitantRequest) {
+    public BaseResponse<Boolean> insertVisitant(@RequestBody VisitantRequest visitantRequest) {
         if(entryService.insertVisitant(visitantRequest)){
             return new BaseResponse<>(200, "성공적으로 등록했습니다.", true);
         } else{
@@ -36,8 +36,8 @@ public class EntryController {
 
     }
 
-    @DeleteMapping("delete")
-    public BaseResponse<Boolean> deleteVisitant(int id) {
+    @DeleteMapping("delete/{id}")
+    public BaseResponse<Boolean> deleteVisitant(@PathVariable int id) {
         System.out.println(id);
         if (entryService.deleteVisitant(id)) {
             return new BaseResponse<>(200, "성공적으로 삭제했습니다.", true);

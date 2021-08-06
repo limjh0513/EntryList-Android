@@ -4,6 +4,7 @@ import com.example.entrylistServer.entity.VisitantEntity;
 import com.example.entrylistServer.repository.EntryRepository;
 import com.example.entrylistServer.request.VisitantRequest;
 import com.example.entrylistServer.response.VisitantResponse;
+import com.example.entrylistServer.utils.VisitantComparator;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -30,19 +32,19 @@ public class EntryService {
             String[] phone = it.getPhone_number().split("-");
             response.setPhone_number(phone[0] + "-****-" + phone[2]);
             response.setResidence(it.getResidence());
-            String date = new SimpleDateFormat("yyyy-mm-dd hh:mm").format(it.getVisit_time());
-            System.out.println(date);
-            response.setVisit_date(date);
-            System.out.println(response.getVisit_date());
+            String date = new SimpleDateFormat("yyyy-MM-dd hh:mm").format(it.getVisit_time());
             response.setVisit_date(date.toString());
 
             responseArray.add(response);
         });
 
+        Collections.sort(responseArray, new VisitantComparator());
         return responseArray;
     }
 
     public boolean insertVisitant(VisitantRequest visitantRequest) {
+        System.out.println(visitantRequest.getResidence() + " " + visitantRequest.getPhone_number());
+
         if(visitantRequest.getPhone_number() == null || visitantRequest.getResidence() == null){
             return false;
         } else {
@@ -74,7 +76,7 @@ public class EntryService {
             response.setId(it.getId());
             response.setPhone_number(it.getPhone_number());
             response.setResidence(it.getResidence());
-            String date = new SimpleDateFormat("yyyy-mm-dd hh:mm").format(it.getVisit_time());
+            String date = new SimpleDateFormat("yyyy-MM-dd hh:mm").format(it.getVisit_time());
             response.setVisit_date(date);
 
             responseArray.add(response);
